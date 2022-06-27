@@ -1,4 +1,4 @@
-﻿; not userd: n, y, b, v
+; not userd: b, y
 
 ; 消去キー
 ~vk1D & o:: Send, {BS}
@@ -13,6 +13,8 @@
 ~vk1D & i:: Send, {End}
 ~vk1D & 1:: Send, {Esc}
 ~vk1D & Space:: Send, {Enter}
+~vk1D & b:: Send, {Insert}
+~vk1D & y:: Send, {}
 ; 音量操作
 ~vk1D & m:: Send, {Volume_Mute}
 ~vk1D & t:: Send, {Volume_Up}
@@ -26,6 +28,8 @@
 ; ブラウザ操作
 ~vk1D & z:: Send, !{Left}
 ~vk1D & x:: Send, !{Right}
+~vk1D & v:: Send, ^{PgUp}
+~vk1D & n:: Send, ^{PgDn}
 
 ; マウス移動ｓ
 ~vk1D & w::
