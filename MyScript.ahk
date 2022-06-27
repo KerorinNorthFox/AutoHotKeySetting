@@ -14,7 +14,7 @@
 ~vk1D & 1:: Send, {Esc}
 ~vk1D & Space:: Send, {Enter}
 ~vk1D & b:: Send, {Insert}
-~vk1D & y:: Send, {}
+~vk1D & y:: Send, {PrintScreen}
 ; 音量操作
 ~vk1D & m:: Send, {Volume_Mute}
 ~vk1D & t:: Send, {Volume_Up}
