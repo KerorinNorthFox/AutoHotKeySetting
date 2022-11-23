@@ -1,4 +1,3 @@
-; not used: b, y
 
 ; 消去キー
 ~vk1D & o:: Send, {BS}
