@@ -6,7 +6,8 @@ windowsユーザー向け
 AutoHotKey公式 :https://www.autohotkey.com
 
 # 割り当て
-無変換 + 
+無変換 + {
+
   o -> BackSpace
   
   p -> Delete
@@ -66,6 +67,8 @@ AutoHotKey公式 :https://www.autohotkey.com
   a -> マウスカーソル左
   
   d -> マウスカーソル右
+  
+  }
   
   
 ※マウスカーソル操作は、Shiftキーと合わせると移動幅が広くなります
