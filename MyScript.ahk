@@ -6,6 +6,8 @@
 ; その行でコマンドを実行するごとに10ms自動sleepするところを、自動sleep無しで実行するようにする.
 SetBatchLines, -1
 
+global speed := 0
+
 *vk1D::
     SetTimer, MoveMouse, 5
 return
@@ -20,7 +22,24 @@ MoveMouse:
         return
 
     ; 移動速度[px]
-    speed := GetKeyState("Shift", "P") ? 10 : 3
+    normalSpeed := 6
+    maxSpeed := 20
+    minSpeed := 3
+    if GetKeyState("Shift", "P")
+    {
+        speed += 0.35
+        if (speed > maxSpeed)
+            speed := maxSpeed
+    }
+    else if GetkeyState("Ctrl", "P")
+    {
+        speed := minSpeed
+    }
+    else
+    {
+        speed := normalSpeed
+    }
+
     dx := 0
     dy := 0
 
@@ -35,7 +54,11 @@ MoveMouse:
 
     ; 何も押されていなければ終了
     if (dx = 0 && dy = 0)
+    {
+        speed := normalSpeed
         return
+    }
+
 
     ; 斜め移動の速度補正
     if (dx != 0 && dy != 0)
