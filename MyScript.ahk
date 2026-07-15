@@ -1,3 +1,73 @@
+#NoEnv
+#SingleInstance Force
+#Persistent
+#InstallKeybdHook
+#InstallMouseHook
+; その行でコマンドを実行するごとに10ms自動sleepするところを、自動sleep無しで実行するようにする.
+SetBatchLines, -1
+
+*vk1D::
+    SetTimer, MoveMouse, 5
+return
+
+*vk1D Up::
+    SetTimer, MoveMouse, Off
+return
+
+MoveMouse:
+    ; 無変換が押されていないなら何もしない
+    if !GetKeyState("vk1D", "P")
+        return
+
+    ; 移動速度[px]
+    speed := GetKeyState("Shift", "P") ? 10 : 3
+    dx := 0
+    dy := 0
+
+    if GetKeyState("w", "P")
+        dy -= speed
+    if GetKeyState("s", "P")
+        dy += speed
+    if GetKeyState("a", "P")
+        dx -= speed
+    if GetKeyState("d", "P")
+        dx += speed
+
+    ; 何も押されていなければ終了
+    if (dx = 0 && dy = 0)
+        return
+
+    ; 斜め移動の速度補正
+    if (dx != 0 && dy != 0)
+    {
+        corr := 0.70710678
+        dx *= corr
+        dy *= corr
+    }
+
+    ; 小数を整数へ
+    dx := Round(dx)
+    dy := Round(dy)
+
+    ; マウス移動
+    DllCall("mouse_event"
+        , "UInt", 0x0001   ; MOUSEEVENTF_MOVE
+        , "Int", dx
+        , "Int", dy
+        , "UInt", 0
+        , "UPtr", 0)
+
+return
+
+; 無変換キーを押している間wasdの入力を無効化
+#If GetKeyState("vk1D", "P")
+
+*w::return
+*a::return
+*s::return
+*d::return
+
+#If
 
 ; 消去キー
 ~vk1D & o:: Send, {BS}
@@ -33,32 +103,3 @@
 ~vk1D & x:: Send, !{Right}
 ~vk1D & v:: Send, ^{PgUp}
 ~vk1D & n:: Send, ^{PgDn}
-
-; マウス移動ｓ
-~vk1D & w::
-if GetKeyState("Shift"){
-    MouseMove 0, -60, 0, R
-}
-MouseMove 0, -10, 0, R
-return
-
-~vk1D & s::
-if GetKeyState("Shift"){
-    MouseMove 0, 60, 0, R
-}
-MouseMove 0, 10, 0, R
-return
-
-~vk1D & a::
-if GetKeyState("Shift"){
-    MouseMove -60, 0, 0, R
-}
-MouseMove -10, 0, 0, R
-return
-
-~vk1D & d::
-if GetKeyState("Shift"){
-    MouseMove 60, 0, 0, R
-}
-MouseMove 10, 0, 0, R
-return
